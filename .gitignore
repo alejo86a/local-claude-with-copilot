@@ -1,0 +1,21 @@
+# Local environment and runtime artifacts
+.env
+.env.*
+*.log
+/tmp/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node / package manager
+node_modules/
+npm-debug.log*
+
+# Editor / IDE
+.vscode/
+.idea/
+
+# Local runtime caches
+.cache/
+coverage/
