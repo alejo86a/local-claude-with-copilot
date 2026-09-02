@@ -1,28 +1,28 @@
 # Operational notes
 
-## Estado verificado
+## Verified state
 
-Durante la validación real, estas condiciones fueron comprobadas en esta máquina:
+During the live validation, these conditions were confirmed on this machine:
 
-- `copilot-api` responde en `http://localhost:4141/usage`
-- `claude -p 'Responde solo con OK'` funciona cuando `ANTHROPIC_BASE_URL` apunta al proxy correcto
-- con un puerto limpio, la ruta directa fue validada con `export ANTHROPIC_BASE_URL=http://localhost:4143`
+- `copilot-api` responds at `http://localhost:4141/usage`
+- `claude -p 'Responde solo con OK'` works when `ANTHROPIC_BASE_URL` points to the correct proxy
+- with a clean port, the direct route was validated with `export ANTHROPIC_BASE_URL=http://localhost:4143`
 
-## Pitfalls observados
+## Observed pitfalls
 
-1. `ANTHROPIC_BASE_URL` viejo en el shell
-2. proceso de proxy previo en un puerto ocupado
-3. conversación terminando en `assistant`
-4. asumir que Aider funciona y Claude también sin probarlo
+1. stale `ANTHROPIC_BASE_URL` in the shell
+2. previous proxy process bound to an occupied port
+3. conversation ending in `assistant`
+4. assuming Aider works and Claude also works without testing both
 
-## Reglas de operación
+## Operation rules
 
-- `curl` antes de `claude`
-- `ps` / `lsof` antes de reiniciar
-- un puerto y una terminal a la vez
-- prueba real antes de cerrar el problema
+- `curl` before `claude`
+- `ps` / `lsof` before restarting
+- one port and one terminal at a time
+- real proof before closing the issue
 
-## Config válida
+## Valid configuration
 
 ```bash
 export ANTHROPIC_BASE_URL=http://localhost:4143
@@ -34,6 +34,6 @@ export ANTHROPIC_SMALL_FAST_MODEL=claude-haiku-4.5
 export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
 ```
 
-## Recomendación
+## Recommendation
 
-Cuando vuelvas a levantar el entorno, usa el script `scripts/start_proxy.sh` y valida con `curl` + `claude -p 'Responde solo con OK'` antes de seguir con trabajo creativo o de integración.
+When you restart the environment, use the `scripts/start_proxy.sh` script and validate with `curl` + `claude -p 'Responde solo con OK'` before continuing with creative or integration work.
