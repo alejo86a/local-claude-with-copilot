@@ -13,10 +13,9 @@ This file is the project index for Markdown-based documentation. It references t
 
 ## Locale copies
 
-- [../i18n/en/README.md](../i18n/en/README.md): English reference copy
-- [../i18n/es/README.md](../i18n/es/README.md): Spanish reference copy only; there is no Spanish quickstart file
+- [../i18n/es/README.md](../i18n/es/README.md): Spanish translation of the official guide
 
-> The canonical quickstart remains [quickstart.md](quickstart.md) in English.
+> The canonical source of truth remains in English at the repository root and in the docs folder.
 
 ## Recommended reading order
 
@@ -24,4 +23,4 @@ This file is the project index for Markdown-based documentation. It references t
 2. [quickstart.md](quickstart.md)
 3. [troubleshooting.md](troubleshooting.md)
 4. [../notes/operational-notes.md](../notes/operational-notes.md)
-5. [../i18n/en/README.md](../i18n/en/README.md)
+5. [../i18n/es/README.md](../i18n/es/README.md): Spanish translation reference

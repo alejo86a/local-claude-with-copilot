@@ -116,8 +116,7 @@ OK
 - [docs/quickstart.md](docs/quickstart.md): fast setup guide
 - [docs/troubleshooting.md](docs/troubleshooting.md): frequent issues and fixes
 - [notes/operational-notes.md](notes/operational-notes.md): validated operational notes
-- [i18n/en/README.md](i18n/en/README.md): English reference
-- [i18n/es/README.md](i18n/es/README.md): Spanish reference retained for continuity
+- [i18n/es/README.md](i18n/es/README.md): Spanish translation of the official guide
 - [env.example](env.example): local environment template
 - [scripts/start_proxy.sh](scripts/start_proxy.sh): robust startup script
 
