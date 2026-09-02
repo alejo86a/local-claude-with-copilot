@@ -1,0 +1,1 @@
+Local setup for using Claude Code through a GitHub Copilot-compatible proxy. Includes reproducible startup scripts, environment templates, quickstart instructions, and troubleshooting notes for running Claude and Aider against a local OpenAI/Anthropic-compatible endpoint.
