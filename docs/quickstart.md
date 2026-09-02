@@ -1,27 +1,27 @@
 # Quickstart
 
-## 1) Levantar el proxy local
+## 1) Start the local proxy
 
 ```bash
 bash /Users/alejo86a/code/personal/local-claude-with-copilot/scripts/start_proxy.sh
 ```
 
-El script hace esto automáticamente:
+The script does this automatically:
 
-- valida que `copilot-api` está instalado
-- mata procesos viejos en el puerto
-- inicia `copilot-api start -p 4141`
-- espera a que `/usage` responda
+- checks that `copilot-api` is installed
+- kills stale processes on the port
+- starts `copilot-api start -p 4141`
+- waits for `/usage` to respond
 
-## 2) Verificar que el proxy está vivo
+## 2) Verify that the proxy is alive
 
 ```bash
 curl -sS http://localhost:4141/usage
 ```
 
-Si devuelve JSON, el proxy está operando.
+If it returns JSON, the proxy is running.
 
-## 3) Exportar variables para Claude
+## 3) Export Claude environment variables
 
 ```bash
 export ANTHROPIC_BASE_URL=http://localhost:4141
@@ -33,48 +33,48 @@ export ANTHROPIC_SMALL_FAST_MODEL=claude-haiku-4.5
 export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
 ```
 
-## 4) Probar una llamada real
+## 4) Test a real request
 
 ```bash
 claude -p 'Responde solo con OK'
 ```
 
-Salida esperada:
+Expected output:
 
 ```text
 OK
 ```
 
-## 5) Para Aider o clientes OpenAI-compatible
+## 5) For Aider or OpenAI-compatible clients
 
 ```bash
 export OPENAI_API_BASE=http://localhost:4141/v1
 export OPENAI_API_KEY=sk-1234
 ```
 
-Y luego:
+Then:
 
 ```bash
 aider --model openai/claude-sonnet-5
 ```
 
-## 6) Si se quiere probar en un puerto limpio
+## 6) If you want to test on a clean port
 
-A veces conviene usar un puerto distinto para pruebas sin conflicto:
+Sometimes it is useful to use a different port to avoid conflicts:
 
 ```bash
 PORT=4143 bash /Users/alejo86a/code/personal/local-claude-with-copilot/scripts/start_proxy.sh
 ```
 
-Y luego apuntar el cliente a:
+Then point the client to:
 
 ```bash
 export ANTHROPIC_BASE_URL=http://localhost:4143
 ```
 
-## 7) Recomendación de validación
+## 7) Validation recommendation
 
-Nunca finalizar sin este check mínimo:
+Never finish without this minimum check:
 
 ```bash
 curl -I http://localhost:4141/usage

@@ -1,8 +1,8 @@
 # Troubleshooting
 
-## 1) El proxy no responde
+## 1) The proxy does not respond
 
-Revisar primero el puerto y el proceso:
+Check the port and the process first:
 
 ```bash
 lsof -nP -iTCP:4141 -sTCP:LISTEN || true
@@ -10,7 +10,7 @@ ps -ef | grep copilot-api | grep -v grep || true
 curl -I http://localhost:4141/usage
 ```
 
-Si hay un proceso viejo o el puerto está ocupado:
+If there is a stale process or the port is occupied:
 
 ```bash
 pkill -f 'copilot-api' || true
@@ -19,84 +19,84 @@ bash /Users/alejo86a/code/personal/local-claude-with-copilot/scripts/start_proxy
 
 ## 2) Connection refused
 
-Esto normalmente significa que el proxy no está levantado o que la terminal tiene un env viejo.
+This usually means the proxy is not running or your terminal still has stale environment variables.
 
-Revisar:
+Check:
 
 ```bash
 echo $ANTHROPIC_BASE_URL
 curl -I http://localhost:4141/usage
 ```
 
-Si no responde, reiniciar el proxy.
+If it does not respond, restart the proxy.
 
-## 3) Variables de entorno viejas
+## 3) Stale environment variables
 
-Un error muy común es que una terminal ya exportó la URL incorrecta y sigue usando esa configuración aunque el proxy nuevo funcione.
+A common issue is that a terminal previously exported the wrong URL and keeps using that config even when the new proxy is working.
 
-Solución:
+Solution:
 
 ```bash
 unset ANTHROPIC_BASE_URL
 export ANTHROPIC_BASE_URL=http://localhost:4141
 ```
 
-O abrir una terminal nueva y re-exportar todo.
+Or open a fresh terminal and re-export everything.
 
-## 4) El cliente falla aunque el proxy sí responde
+## 4) The client fails even though the proxy responds
 
-Hay que distinguir dos cosas:
+Two things must be distinguished:
 
-- el proxy está vivo
-- el cliente está apuntando al puerto correcto
+- the proxy is alive
+- the client is pointing to the correct port
 
-Comprueba tanto con `curl` como con el comando real del cliente:
+Check both with `curl` and the actual client command:
 
 ```bash
 curl -sS http://localhost:4141/usage
 claude -p 'Responde solo con OK'
 ```
 
-## 5) Error de conversación final con `assistant`
+## 5) Final conversation error with `assistant`
 
-Este es un caso clásico del cliente Anthropic y se da cuando el historial termina con un turno de `assistant` en vez de `user`.
+This is a classic Anthropic client issue when the history ends with an `assistant` turn instead of a `user` turn.
 
-Regla: la última entrada de la conversación debe ser `user`.
+Rule: the last message in the conversation must be `user`.
 
-Si aparecen errores del tipo:
+If you see errors like:
 
 ```text
 This model does not support assistant message prefill. The conversation must end with a user message.
 ```
 
-entonces hay que limpiar el historial antes de enviar la petición, o usar una nueva conversación sin contenido previo.
+then clear the conversation history before sending the request or start a fresh session.
 
-## 6) Modelo no reconocido o no se encuentra disponible
+## 6) Model not recognized or unavailable
 
-Verifica qué modelo está activo en el entorno:
+Check which model is active in the environment:
 
 ```bash
 echo $ANTHROPIC_MODEL
 ```
 
-Y usa uno que esté disponible en la lista del backend. En este entorno el modelo validado fue:
+Use one that is available in the backend list. In this environment, the validated model was:
 
 ```bash
 claude-sonnet-5
 ```
 
-## 7) Que no se declare éxito sin prueba real
+## 7) Do not declare success without a real test
 
-La regla más importante del proyecto es esta:
+The most important rule in this project is:
 
-- no basta con ver el archivo de config
-- no basta con suponer que el proxy está bien
-- hay que ejecutar una prueba real con `claude` o `aider`
+- do not rely only on a config file
+- do not assume the proxy is healthy just because it looks correct
+- run a real verification using `claude` or `aider`
 
-Comando mínimo de validación:
+Minimum validation command:
 
 ```bash
 claude -p 'Responde solo con OK'
 ```
 
-Si no devuelve `OK`, no se considera resuelto.
+If it does not return `OK`, it is not considered resolved.

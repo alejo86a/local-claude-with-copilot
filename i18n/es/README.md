@@ -1,6 +1,6 @@
 # Claude local con Copilot
 
-Referencia en español para la configuración local de Claude + GitHub Copilot.
+Referencia en español para la configuración local de Claude + GitHub Copilot. Esta es una traducción de soporte y no la versión principal del repositorio.
 
 ## Qué contiene este proyecto
 
