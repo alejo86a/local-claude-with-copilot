@@ -2,6 +2,8 @@
 
 Referencia en español para la configuración local de Claude + GitHub Copilot. Esta es una traducción de soporte y no la versión principal del repositorio.
 
+> Nota: no existe una versión en español de [../../docs/quickstart.md](../../docs/quickstart.md). El quickstart canónico permanece en inglés. Esta carpeta solo ofrece una referencia de apoyo.
+
 ## Qué contiene este proyecto
 
 - notas de configuración del proxy local
