@@ -14,7 +14,7 @@ ensure_command() {
 
 cleanup_stale_jobs() {
   local pid
-  pid="$(lsof -t -nP -iTCP:${PORT} -sTCP:LISTEN 2>/dev/null || true)"
+  pid="$(lsof -t -nP -iTCP:"${PORT}" -sTCP:LISTEN 2>/dev/null || true)"
   if [[ -n "$pid" ]]; then
     echo "Puerto ${PORT} ocupado por PID ${pid}. Limpieza previa..."
     kill "$pid" 2>/dev/null || true
