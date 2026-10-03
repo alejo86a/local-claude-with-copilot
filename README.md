@@ -1,5 +1,7 @@
 # Local Claude with Copilot
 
+[![lint](https://github.com/alejo86a/local-claude-with-copilot/actions/workflows/lint.yml/badge.svg)](https://github.com/alejo86a/local-claude-with-copilot/actions/workflows/lint.yml)
+
 This project documents the local setup used to run Claude Code through a GitHub Copilot-compatible proxy based on `copilot-api`, without depending directly on the Anthropic public API.
 
 ## Reference
