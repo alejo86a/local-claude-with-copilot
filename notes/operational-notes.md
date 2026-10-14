@@ -5,8 +5,9 @@
 During the live validation, these conditions were confirmed on this machine:
 
 - `copilot-api` responds at `http://localhost:4141/usage`
-- `claude -p 'Responde solo con OK'` works when `ANTHROPIC_BASE_URL` points to the correct proxy
-- with a clean port, the direct route was validated with `export ANTHROPIC_BASE_URL=http://localhost:4143`
+- Claude Code works when `ANTHROPIC_BASE_URL` points to the running proxy and its selected model accepts a real request
+- `scripts/start_proxy.sh` checks real model requests and writes a custom `modelPicker` entry using `behavesAs` when it needs a non-Claude Copilot backend
+- On the observed `free_limited_copilot` account, Claude model IDs were rejected while `gpt-4.1` worked; the native Claude Code CLI then returned the expected response without an unknown-model warning
 
 ## Observed pitfalls
 
@@ -22,18 +23,14 @@ During the live validation, these conditions were confirmed on this machine:
 - one port and one terminal at a time
 - real proof before closing the issue
 
-## Valid configuration
+## Base configuration
 
 ```bash
-export ANTHROPIC_BASE_URL=http://localhost:4143
+export ANTHROPIC_BASE_URL=http://localhost:4141
 export ANTHROPIC_AUTH_TOKEN=sk-dummy
-export ANTHROPIC_MODEL=claude-sonnet-5
-export ANTHROPIC_DEFAULT_SONNET_MODEL=claude-sonnet-5
-export ANTHROPIC_DEFAULT_HAIKU_MODEL=claude-haiku-4.5
-export ANTHROPIC_SMALL_FAST_MODEL=claude-haiku-4.5
 export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
 ```
 
 ## Recommendation
 
-When you restart the environment, use the `scripts/start_proxy.sh` script and validate with `curl` + `claude -p 'Responde solo con OK'` before continuing with creative or integration work.
+When you restart the environment, use `scripts/start_proxy.sh` and validate with `curl` plus a real `claude -p` request before continuing with other work. The launcher rechecks model support each time. If authorization has expired, complete `copilot-api auth`; if the account has lost Copilot student/premium entitlement, the launcher can only use a fallback model the account still supports.

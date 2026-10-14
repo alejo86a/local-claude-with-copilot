@@ -9,9 +9,15 @@ bash /Users/alejo86a/code/personal/local-claude-with-copilot/scripts/start_proxy
 The script does this automatically:
 
 - checks that `copilot-api` is installed
-- kills stale processes on the port
+- reuses a healthy proxy or replaces a stale `copilot-api` listener
 - starts `copilot-api start -p 4141`
 - waits for `/usage` to respond
+- reads the proxy model catalog and probes real Claude requests
+- maps Claude Code's recognized Sonnet, Haiku, and Opus IDs to backends that accept real requests
+
+If GitHub authorization has expired, refresh it with `copilot-api auth`, complete the browser sign-in, then run the startup script again.
+
+If the account no longer has access to Claude models, the launcher tries the proxy-documented `gpt-4.1` and `gpt-4o` backends. Claude Code remains the native client, but the underlying model is then GPT, not Claude. Restoring Claude-backed models requires Copilot entitlement that includes them. The launcher writes a custom model-picker entry with Claude-compatible capability defaults and the explicitly labeled Copilot backend ID.
 
 ## 2) Verify that the proxy is alive
 
@@ -26,12 +32,10 @@ If it returns JSON, the proxy is running.
 ```bash
 export ANTHROPIC_BASE_URL=http://localhost:4141
 export ANTHROPIC_AUTH_TOKEN=sk-dummy
-export ANTHROPIC_MODEL=claude-sonnet-5
-export ANTHROPIC_DEFAULT_SONNET_MODEL=claude-sonnet-5
-export ANTHROPIC_DEFAULT_HAIKU_MODEL=claude-haiku-4.5
-export ANTHROPIC_SMALL_FAST_MODEL=claude-haiku-4.5
 export CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1
 ```
+
+The startup script determines usable models at runtime; do not assume a model name shown by `/v1/models` is accepted until a real request succeeds.
 
 ## 4) Test a real request
 

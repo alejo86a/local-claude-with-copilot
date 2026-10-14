@@ -73,17 +73,24 @@ then clear the conversation history before sending the request or start a fresh 
 
 ## 6) Model not recognized or unavailable
 
-Check which model is active in the environment:
+`/v1/models` may advertise model IDs that the current GitHub Copilot account cannot actually use. The startup script sends minimal real requests and updates `~/.claude/settings.json` only after a request succeeds. For a non-Claude backend, it creates a custom `modelPicker` entry with a known Claude capability profile (`behavesAs`) so Claude Code accepts the provider model without an unknown-model warning.
+
+The account may have lost its student or paid Copilot entitlement. Check the plan and quotas:
 
 ```bash
-echo $ANTHROPIC_MODEL
+copilot-api check-usage
 ```
 
-Use one that is available in the backend list. In this environment, the validated model was:
+The `free_limited_copilot` plan has no premium interactions in the observed setup. Claude-backed models may therefore be rejected even while included chat models work. The launcher falls back to `gpt-4.1` or `gpt-4o` when available. Claude Code remains the client, but those requests use a GPT model.
+
+If the GitHub session itself is expired, refresh it with `copilot-api auth`, complete the browser device login, then rerun:
 
 ```bash
-claude-sonnet-5
+bash /Users/alejo86a/code/personal/local-claude-with-copilot/scripts/start_proxy.sh
+claude -p 'Reply with exactly: CLAUDE_CONNECTION_OK'
 ```
+
+If every Claude and fallback model fails, the account currently has no usable model entitlement through this proxy. A model name change alone cannot grant access; restore the student/paid Copilot entitlement or use an eligible model/provider.
 
 ## 7) Do not declare success without a real test
 
